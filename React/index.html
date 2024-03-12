@@ -12,25 +12,113 @@
 	<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
 	<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 	<script type="text/babel">
-		const root = ReactDOM.createRoot(document.getElementById("root"));
-		let counter = 0;
-		function countUp() {
-			counter += 1;
-			root.render(<Container />);
-		}
-
-		// function render() {
-		// 	ReactDOM.createRoot(root).render(<Container />);
-		// }
-		// const container = React.createElement("div", null, [h2, btn]);
-		function Container() {
+		function TimeConvertor() {
+			const [amount, setMinutes] = React.useState();
+			const [inverted, setInverted] = React.useState(false);
+			const onChange = (event) => {
+				setMinutes(event.target.value);
+			};
+			const reset = () => {
+				setMinutes(0);
+			};
+			const onInvert = () => {
+				reset();
+				setInverted((current) => !current);
+			};
 			return (
 				<div>
-					<h2>총: {counter}</h2>
-					<button onClick={countUp}>클릭</button>
+					<div>
+						<label htmlFor="minutes">Minutes</label>
+						<input
+							value={inverted ? amount * 60 : amount}
+							id="minutes"
+							placeholder="Minutes"
+							type="number"
+							onChange={onChange}
+							disabled={inverted === true}
+						/>
+					</div>
+					<div>
+						<label htmlFor="hours">Hours</label>
+						<input
+							value={inverted ? amount : amount / 60}
+							id="hours"
+							placeholder="Hours"
+							type="number"
+							onChange={onChange}
+							disabled={inverted === false}
+						/>
+					</div>
+					<button onClick={reset}>Reset</button>
+					<button onClick={onInvert}>{inverted ? "!반전" : "반전"}</button>
 				</div>
 			);
 		}
-		root.render(<Container />);
+		function DistanceConvertor() {
+			const [unit, setUnit] = React.useState(0);
+			const [inverted, setInverted] = React.useState(false);
+			const onChange = (event) => {
+				setUnit(event.target.value);
+			};
+			const reset = () => {
+				setUnit(0);
+			};
+			const onInvert = () => {
+				reset();
+				setInverted((current) => !current);
+			};
+			return (
+				<div>
+					<div>
+						<label htmlFor="km">Km</label>
+						<input
+							value={inverted ? unit / 1.609 : unit}
+							id="km"
+							placeholder="Km"
+							type="number"
+							onChange={onChange}
+							disabled={inverted === true}
+						/>
+					</div>
+					<div>
+						<label htmlFor="miles">miles</label>
+						<input
+							value={inverted ? unit : unit * 1.609}
+							id="miles"
+							placeholder="Miles"
+							type="number"
+							onChange={onChange}
+							disabled={inverted === false}
+						/>
+					</div>
+					<button onClick={reset}>Reset</button>
+					<button onClick={onInvert}>{inverted ? "!반전" : "반전"}</button>
+				</div>
+			);
+		}
+
+		function App() {
+			const [index, setIndex] = React.useState("XX");
+			const onSelect = (event) => {
+				setIndex(event.target.value);
+			};
+			return (
+				<div>
+					<h1>매우 엄청난 변환기!</h1>
+					<select value={index} onChange={onSelect}>
+						<option value="XX">Select your units</option>
+						<option value="0">Minutes & Hours</option>
+						<option value="1">Km & Miles</option>
+					</select>
+					<hr />
+					<br />
+					{index === "XX" ? "너의 변환기를 골라줘!" : null}
+					{index === "0" ? <TimeConvertor /> : null}
+					{index === "1" ? <DistanceConvertor /> : null}
+				</div>
+			);
+		}
+		const root = document.getElementById("root");
+		ReactDOM.createRoot(root).render(<App />);
 	</script>
 </html>
