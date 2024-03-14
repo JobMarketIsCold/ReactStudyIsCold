@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.js": "/JobMarketIsCold/ReactStudyIsCold/static/js/main.71ee0b0e.js",
-    "index.html": "/JobMarketIsCold/ReactStudyIsCold/index.html",
-    "main.71ee0b0e.js.map": "/JobMarketIsCold/ReactStudyIsCold/static/js/main.71ee0b0e.js.map"
+    "main.js": "/ReactStudyIsCold/static/js/main.71ee0b0e.js",
+    "index.html": "/ReactStudyIsCold/index.html",
+    "main.71ee0b0e.js.map": "/ReactStudyIsCold/static/js/main.71ee0b0e.js.map"
   },
   "entrypoints": [
     "static/js/main.71ee0b0e.js"
